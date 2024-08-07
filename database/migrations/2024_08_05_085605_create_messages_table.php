@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('conversation_id')->constrained()->cascadeOnDelete();
 
-            $table->unsignedBigInteger('sender_id')->nullable();// or uuid()
+            $table->unsignedBigInteger('sender_id')->nullable();
             $table->foreign('sender_id')->references('id')->on('users')->nullOnDelete();
 
-            $table->unsignedBigInteger('receiver_id')->nullable();// or uuid()
+            $table->unsignedBigInteger('receiver_id')->nullable();
             $table->foreign('receiver_id')->references('id')->on('users')->nullOnDelete();
 
 
