@@ -8,12 +8,16 @@ use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
+
 new #[Layout('layouts.guest')] class extends Component
 {
+
+
     public string $name = '';
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+
 
     /**
      * Handle an incoming registration request.
@@ -51,6 +55,7 @@ new #[Layout('layouts.guest')] class extends Component
             <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
+
 
         <!-- Password -->
         <div class="mt-4">

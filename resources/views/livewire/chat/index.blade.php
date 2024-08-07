@@ -8,7 +8,7 @@
     
         <div class="hidden md:grid   w-full border-l h-full relative overflow-y-auto" style="contain:content">
     
-            @livewire('chat.chat-box')
+            choose a conversation to start chatting
     
         </div>
     

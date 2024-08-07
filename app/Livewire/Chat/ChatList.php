@@ -6,8 +6,12 @@ use Livewire\Component;
 
 class ChatList extends Component
 {
+    public $selectedConversation;
+    public $query;
+    
     public function render()
     {
-        return view('livewire.chat.chat-list');
+        $conversations = auth()->user()->conversations()->latest('updated_at')->get();
+        return view('livewire.chat.chat-list',compact('conversations'));
     }
 }

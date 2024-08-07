@@ -16,10 +16,10 @@ class Users extends Component
 
        $existingConversation = Conversation::where(function($query) use($userId,$authUserId){
             $query->where("sender_id",$authUserId)
-                  ->where("reciever_id",$userId);
+                  ->where("receiver_id",$userId);
        })
        ->orWhere(function ($query) use ($userId,$authUserId){
-            $query->where("reciever_id",$authUserId)
+            $query->where("receiver_id",$authUserId)
                   ->where("sender_id",$userId); 
        })->first();
 
@@ -30,7 +30,7 @@ class Users extends Component
        # MS - elsewhere we will create a new conversation
        $createdConversation = Conversation::create([
         "sender_id" => $authUserId,
-        "reciever_id" => $userId
+        "receiver_id" => $userId
        ]);
 
        return to_route("chat",$createdConversation->id);

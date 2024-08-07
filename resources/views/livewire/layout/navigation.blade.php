@@ -41,11 +41,6 @@ new class extends Component
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('chat',2)" :active="request()->routeIs('chat')" wire:navigate>
-                        {{ __('Chat query') }}
-                    </x-nav-link>
-                </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" wire:navigate>

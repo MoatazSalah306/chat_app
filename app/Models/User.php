@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        "avatar"
     ];
 
     /**
@@ -48,6 +49,6 @@ class User extends Authenticatable
     public function conversations()
     {
         
-        return $this->hasMany(Conversation::class,'sender_id')->orWhere('receiver_id',$this->id)->whereNotDeleted();
+        return $this->hasMany(Conversation::class,'sender_id')->orWhere('receiver_id',$this->id);
     }
 }
