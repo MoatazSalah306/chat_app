@@ -1,0 +1,4 @@
+1- run command "php artisan install:broadcasting"
+2- sign up to pusher and use your credentials
+3- update resources/js/echo.js from reverb to pusher configuration
+4- go to pusher debug console to test your connection.
