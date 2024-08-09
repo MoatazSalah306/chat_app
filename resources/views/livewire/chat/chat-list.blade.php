@@ -17,7 +17,10 @@
 
     }
 
-    },200);"
+    },200);
+    
+    
+    "
 
     @update-conversation.window="
  $nextTick(() => {

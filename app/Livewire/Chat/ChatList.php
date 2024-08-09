@@ -10,6 +10,7 @@ class ChatList extends Component
     public $selectedConversation;
     public $query;
 
+
     
     #[On("update-conversation")]
     public function render()
