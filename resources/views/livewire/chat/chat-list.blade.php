@@ -5,6 +5,7 @@
    setTimeout(()=>{
 
     conversationElement = document.getElementById('conversation-'+query);
+    chatList = document.getElementById('chat-list');
 
 
     //scroll to the element
@@ -17,6 +18,16 @@
     }
 
     },200);"
+
+    @update-conversation.window="
+ $nextTick(() => {
+            chatList.scrollTo({
+                top: 0,
+                behavior: 'smooth'  
+            });
+        });
+ "
+ 
 
     class="flex flex-col transition-all h-full overflow-hidden">
 
@@ -54,11 +65,11 @@
 
     </header>
 
-    <main class=" overflow-y-scroll overflow-hidden grow  h-full relative  dark:bg-gray-900 dark:text-white" style="contain:content">
+    <main id="chat-list" class="overflow-y-scroll overflow-hidden grow  h-full relative  dark:bg-gray-900 dark:text-white" style="contain:content">
 
         {{-- MS - chatlist  --}}
 
-        <ul class="p-2 grid w-full spacey-y-2">
+        <ul class="p-2 grid w-full spacey-y-2" >
 
             
             @if ($conversations)
@@ -94,35 +105,42 @@
 
                                 <div class="flex gap-x-2 items-center">
 
-                                    {{-- MS - double check 
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
-                                            <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
-                                            <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
-                                        </svg>
-                                    </span> --}}
-                            
+                                    @if ($conversation->messages?->last()?->sender_id == auth()->id())
+                                        @if ($conversation->messages?->last()?->isRead())
+                                            {{-- MS - double check --}}
 
-                                            {{-- MS - single check  --}}
-                                            <span>
+                                            <span @class('text-blue-500')>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
+                                                    <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
+                                                    <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
+                                                </svg>
+                                            </span>
+                                        @else
+                                            {{-- MS - single check --}}
+                                            <span  @class('text-blue-500')>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                                                     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                                                 </svg>
                                             </span>
-                                            
-                            
+                                        @endif
+                                    @endif
                             
 
                         
 
                                     <p class="grow truncate text-sm font-[100]">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente hic reprehenderit molestias deleniti, quibusdam quo laudantium repellat dolores, quod maiores cumque, aut necessitatibus laboriosam iusto quis harum provident labore sint.
+                                    {{$conversation->messages?->last()?->body}}
                                     </p>
 
                                 
-                                    <span class="font-bold p-px px-2 text-xs shrink-0 rounded-full bg-indigo-500 text-white">
-                                        4
-                                    </span>
+                                      
+                                        @if ($conversation->countUnread()>0)
+                                            <span class="font-bold p-px px-2 text-xs shrink-0 rounded-full bg-indigo-500 text-white">
+                                                {{$conversation->countUnread()}}
+                                            </span>
+                                       
+                                        
+                                        @endif
                                         
                         
 
