@@ -24,7 +24,7 @@ class ChatBox extends Component
         $auth_id = auth()->user()->id;
 
         return [
-            "echo-private:users.{$auth_id},.Illuminate\\Notifications\\Events\\BroadcastNotificationCreated" => 'broadcastedNotifications'
+            "echo-private:users.{$auth_id},.Illuminate\\Notifications\\Events\\BroadcastNotificationCreated" => 'broadcastedNotifications',
         ];
     }
 
@@ -46,7 +46,7 @@ class ChatBox extends Component
         $this->loadMessages();
 
         # MS - Update the chat height 
-        // $this->dispatch('update-chat-height');
+        $this->dispatch('update-chat-height');
     }
 
     public function broadcastedNotifications($event){

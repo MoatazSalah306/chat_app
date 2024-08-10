@@ -34,6 +34,11 @@ class Conversation extends Model
 
     }
 
+
+
+ 
+
+
     public function countUnread()
     {
 

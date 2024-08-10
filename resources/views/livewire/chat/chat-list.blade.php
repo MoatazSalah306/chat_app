@@ -34,12 +34,12 @@
 
     class="flex flex-col transition-all h-full overflow-hidden">
 
-    <header class="px-3 z-10 bg-white sticky top-0 w-full py-2 dark:bg-gray-900 dark:text-white">
+    <header class="px-3 z-10 sticky top-0 w-full py-2 dark:bg-gray-900 dark:text-white">
 
         <div class="border-b justify-between flex items-center pb-2">
-
+            
             <div class="flex items-center gap-2">
-                 <h5 class="font-extrabold text-2xl">Chats</h5>
+                 <h5 class="font-extrabold text-2xl ml-4">Chats</h5>
             </div>
 
              <button>
@@ -57,11 +57,9 @@
         <div class="flex gap-3 items-center p-2 bg-white  dark:bg-gray-900 dark:text-white">
 
             <button @click="type='all'" :class="{'bg-indigo-200 border-0 text-black':type=='all'}" class="inline-flex justify-center items-center rounded-full gap-x-1 text-xs font-medium px-3 lg:px-5 py-1  lg:py-2.5 border ">
-                    All
+                    All Conversations
             </button>
-            <button @click="type='deleted'" :class="{'bg-indigo-200 border-0 text-black':type=='deleted'}" class="inline-flex justify-center items-center rounded-full gap-x-1 text-xs font-medium px-3 lg:px-5 py-1  lg:py-2.5 border ">
-                Deleted
-            </button>
+
 
         </div>
 
@@ -75,9 +73,10 @@
         <ul class="p-2 grid w-full spacey-y-2" >
 
             
-            @if ($conversations)
+            @if (count($conversations)>0)
 
                 @foreach ($conversations as $conversation)
+           
                     <li
                         id="conversation-{{$conversation->id}}"
                         wire:key="{{$conversation->id}}"
@@ -171,7 +170,7 @@
 
                                         <div class="w-full p-1">
 
-                                            <button class="items-center gap-3 flex w-full px-4 py-2 text-left text-sm leading-5 text-gray-500 hover:bg-gray-100 transition-all duration-150 ease-in-out focus:outline-none focus:bg-gray-100">
+                                            <a wire:navigate href={{route("users.show",$conversation->getReceiver()?->id)}} class="items-center gap-3 flex w-full px-4 py-2 text-left text-sm leading-5 text-gray-500 hover:bg-gray-100 transition-all duration-150 ease-in-out focus:outline-none focus:bg-gray-100">
 
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -182,19 +181,8 @@
 
                                                 View Profile
 
-                                            </button>
-                                            <button 
-                                            class="items-center gap-3 flex w-full px-4 py-2 text-left text-sm leading-5 text-gray-500 hover:bg-gray-100 transition-all duration-150 ease-in-out focus:outline-none focus:bg-gray-100">
-
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                                    </svg>
-                                                </span>
-
-                                                Delete
-
-                                            </button>
+                                            </a>
+                                            
 
 
 
@@ -212,7 +200,8 @@
 
                     </li>
                 @endforeach
-
+            @else
+            <p class="text-2xl font-mono text-center text-gray-300">No conversations yet</p>
             @endif
 
         </ul>
