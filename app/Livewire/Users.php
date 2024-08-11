@@ -32,6 +32,7 @@ class Users extends Component
         "sender_id" => $authUserId,
         "receiver_id" => $userId
        ]);
+       $this->dispatch("conversation-created");
 
        return to_route("chat",$createdConversation->id);
     

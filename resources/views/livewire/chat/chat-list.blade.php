@@ -107,7 +107,7 @@
 
         {{-- MS - chatlist  --}}
 
-        <ul class="p-2 grid w-full spacey-y-2" >
+        <ul class="p-2 grid w-full spacey-y-2">
 
             
             @if (count($conversations)>0)
@@ -142,7 +142,7 @@
 
                                 {{-- MS - Message body --}}
 
-                                <div class="flex gap-x-2 items-center">
+                                <div class="flex gap-x-2 items-center" wire:poll.5s>
 
                                     @if ($conversation->messages?->last()?->sender_id == auth()->id())
                                         @if ($conversation->messages?->last()?->isRead())

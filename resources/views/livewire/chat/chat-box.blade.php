@@ -1,7 +1,6 @@
 <div x-data="{
     height: 0,
-    conversationElement: document.getElementById('conversation'),
-     markAsRead:0
+    conversationElement: document.getElementById('conversation')
 }" x-init="height = conversationElement.scrollHeight;
 $nextTick(() => {
     conversationElement.scrollTo({
@@ -11,14 +10,7 @@ $nextTick(() => {
 });
 
 
-      Echo.private('users.{{Auth()->User()->id}}')
-        .notification((notification)=>{
-            if(notification['type']== 'App\\Notifications\\MessageRead' && notification['conversation_id']== {{$this->selectedConversation->id}})
-            {
 
-                markAsRead=true;
-            }
-        });
 "
 
     @scroll-bottom.window="
@@ -37,7 +29,6 @@ $nextTick(() => {
         {{-- MS - Header --}}
 
         <header class="w-full sticky inset-x-0 flex pb-[5px] pt-[5px] top-0 z-10 bg-white border-b ">
-
             <div class="flex w-full items-center px-2 lg:px-4 gap-2 md:gap-5">
 
                 <a class="shrink-0 lg:hidden" href={{route("chat.index")}} wire:navigate>
@@ -71,6 +62,7 @@ $nextTick(() => {
 
         {{-- MS - Body --}}
         <main
+        wire:poll.5s
             @scroll="
         scrollTop = $el.scrollTop;
         if (scrollTop <= 0) {
@@ -145,27 +137,36 @@ $nextTick(() => {
 
                                 @if ($message->sender_id=== auth()->id())
           
-                                <div  x-data="{markAsRead:@json($message->isRead())}">
-            
-                                    {{-- double ticks --}}
-            
-                                    <span x-show="markAsRead == 1" @class('text-gray-200')>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
-                                            <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
-                                            <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
-                                        </svg>
-                                    </span>
-            
-                                    {{-- single ticks --}}
-                                    <span x-show="markAsRead == 0" @class('text-gray-200')>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                        </svg>
-                                    </span>
+                                <div>
+                              
+                                        <div>
+                                            <p>{{ $message->text }}</p>
+                                            
+                                            @if ($message->read_at)
+                                                {{-- double ticks --}}
+                                                <span class="text-gray-200">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
+                                                        <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0z"/>
+                                                        <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708z"/>
+                                                    </svg>
+                                                </span>
+                                            @else
+                                             {{-- single ticks --}}
+                                             <span  class="text-gray-200">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                                </svg>
+                                            </span>
+                                            @endif
+                                            
                                 
-            
+                                           
+                                        </div>
+                                   
                                 </div>
-                            @endif
+                                
+                                
+                                @endif
 
 
 
