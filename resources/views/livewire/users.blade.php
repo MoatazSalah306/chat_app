@@ -11,7 +11,11 @@
 
                 <div class="flex flex-col items-center pb-8">
 
-                    <img src="https://img-cdn.pixlr.com/image-generator/history/65772796905f29530816ea40/4ca9ba3d-c418-4153-a36a-77f4182236a7/medium.webp" alt="image" class="w-24 h-24 mb-2 5 rounded-full shadow-lg">
+                    @if ($user->avatar)
+                    <x-avatar src="{{ url('storage/' . $user->avatar) }}" class="w-24 h-24 mb-2 5 rounded-full shadow-lg"/>
+                    @else
+                        <x-avatar class="w-24 h-24 mb-2 5 rounded-full shadow-lg"/>
+                    @endif
 
                     <h5 class="mb-1 text-xl font-medium text-gray-900 " >
                         {{$user->name}}
@@ -24,7 +28,7 @@
                             Add Friend
                         </x-secondary-button>
 
-                        <x-primary-button wire:click="message({{$user->id}})">
+                        <x-primary-button wire:navigate wire:click="message({{$user->id}})">
                             Message
                         </x-primary-button>
 

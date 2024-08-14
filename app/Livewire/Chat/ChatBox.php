@@ -8,19 +8,22 @@ use App\Notifications\MessageSent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Reactive;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
-use function Laravel\Prompts\alert;
 
 class ChatBox extends Component
 {
     public $selectedConversation;
     public $loadedMessages;
     public $paginate_var = 10;
-
+    public $updatedStatuses = [];
     
+
+    public function updateMessageStatuses()
+{
+    $this->updatedStatuses = $this->loadUpdatedStatuses(); // Your logic to update statuses
+}
 
     public function getListeners()
     {
@@ -65,6 +68,7 @@ class ChatBox extends Component
                 $this->loadedMessages->push($newMessage);
                 $newMessage->read_at = now();
                 $newMessage->save();
+         
                 $this->selectedConversation->countUnread();
 
                 $this->selectedConversation->getReceiver()->notify( new MessageRead(
@@ -84,7 +88,6 @@ class ChatBox extends Component
     }
 
 
-
     public function sendMessage()
     {
         $this->validate();
@@ -98,6 +101,7 @@ class ChatBox extends Component
 
 
         $this->reset('body');
+
 
         #scroll to bottom
         $this->dispatch('scroll-bottom');

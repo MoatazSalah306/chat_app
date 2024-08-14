@@ -59,4 +59,14 @@ class User extends Authenticatable
     {
         return 'users.'.$this->id;
     }
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class);
+    }
+
+    public function favouriteConversations()
+    {
+        return $this->hasManyThrough(Conversation::class, Favourite::class, 'user_id', 'id', 'id', 'conversation_id');
+    }
 }

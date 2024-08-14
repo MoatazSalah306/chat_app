@@ -1,13 +1,18 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Livewire\WithFileUploads;
 use Livewire\Volt\Component;
+
 
 new class extends Component
 {
+    use WithFileUploads;
+
     public string $name = '';
     public string $email = '';
 
@@ -32,7 +37,11 @@ new class extends Component
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
         ]);
 
+
+
         $user->fill($validated);
+
+  
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -51,7 +60,7 @@ new class extends Component
         $user = Auth::user();
 
         if ($user->hasVerifiedEmail()) {
-            $this->redirectIntended(default: route('dashboard', absolute: false));
+            $this->redirectIntended(default: route('chat.index', absolute: false));
 
             return;
         }
@@ -104,11 +113,13 @@ new class extends Component
             @endif
         </div>
 
+
+
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
             <x-action-message class="me-3" on="profile-updated">
-                {{ __('Saved.') }}
+                {{ __('Saved successfully.') }}
             </x-action-message>
         </div>
     </form>

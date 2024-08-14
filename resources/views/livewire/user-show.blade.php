@@ -10,7 +10,17 @@
       <div class="flex flex-wrap justify-center">
         <div class="w-full px-4 flex justify-center">
           <div class="relative">
-            <img alt="..." src="https://demos.creative-tim.com/notus-js/assets/img/team-1-800x800.jpg" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+              @if ($user->avatar)
+                  <img src="{{url('storage/',$user->avatar)}}" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" alt="user avatar"/>
+              @else
+                <svg
+                  class="shrink-0 shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px text-gray-300 bg-gray-100 dark:bg-gray-600"
+                  fill="currentColor"
+                  viewBox="0 0 24 24">
+                  <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                  {{-- <img src="" /> --}}
+              @endif
           </div>
         </div>
         <div class="w-full px-4 text-center mt-20">
@@ -55,7 +65,9 @@
       </div>
       <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
         <div class="flex flex-wrap justify-center">
-            Contact Us at +201099671166
+          <x-primary-button wire:navigate wire:click='redirectToConversation({{$user->id}})'>
+            Go to conversation
+          </x-primary-button>
         </div>
       </div>
     </div>

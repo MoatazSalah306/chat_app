@@ -12,11 +12,11 @@ new class extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/login', navigate: true);
     }
 }; ?>
 
-<nav style="height: 8.8vh" x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav  x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -26,7 +26,8 @@ new class extends Component
                     <a href="{{ route('chat.index') }}" wire:navigate>
                         <x-application-logo/>
                     </a>
-                    <span class="text-gray-400 font-mono ml-4">Chatter</span>
+                    <a wire:navigate href={{route("chat.index")}} class="text-gray-400 font-mono cursor-pointer ml-4">Chatter</a>
+
                 </div>
 
            
@@ -46,10 +47,11 @@ new class extends Component
                 
             </div>
 
-            <!-- Settings Dropdown -->
+           
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
+                        <div class="flex content-center items-center">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
 
@@ -59,6 +61,12 @@ new class extends Component
                                 </svg>
                             </div>
                         </button>
+                        @if (auth()->user()->avatar)
+                        <x-avatar src="{{ url('storage/' . auth()->user()->avatar) }}"/>
+                        @else
+                            <x-avatar/>
+                        @endif
+                    </div>
                     </x-slot>
 
                     <x-slot name="content">
@@ -73,8 +81,13 @@ new class extends Component
                             </x-dropdown-link>
                         </button>
                     </x-slot>
+
+
                 </x-dropdown>
+                
             </div>
+          
+        
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">

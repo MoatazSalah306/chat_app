@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    
     #[On("conversation-created")]
     public function render()
     {

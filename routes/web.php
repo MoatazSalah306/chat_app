@@ -6,9 +6,7 @@ use App\Livewire\Users;
 use App\Livewire\UserShow;
 use Illuminate\Support\Facades\Route;
 
-Route::get("/",function(){
-    return to_route("login");
-});
+
 
 
 Route::view('profile', 'profile')
@@ -18,7 +16,7 @@ Route::view('profile', 'profile')
 require __DIR__ . '/auth.php';
 
 Route::middleware("auth")->group(function () {
-    Route::get("/chat", Index::class)->name("chat.index");
+    Route::get("/", Index::class)->name("chat.index");
     Route::get("/chat/{query}", Chat::class)->name("chat");
     Route::get("/users", Users::class)->name("users.index");
     Route::get("/users/{id}", UserShow::class)->name("users.show");
