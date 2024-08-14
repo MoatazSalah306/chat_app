@@ -17,13 +17,8 @@ class ChatBox extends Component
     public $selectedConversation;
     public $loadedMessages;
     public $paginate_var = 10;
-    public $updatedStatuses = [];
-    
 
-    public function updateMessageStatuses()
-{
-    $this->updatedStatuses = $this->loadUpdatedStatuses(); // Your logic to update statuses
-}
+
 
     public function getListeners()
     {
