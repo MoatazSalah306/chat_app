@@ -71,6 +71,17 @@ class ChatBox extends Component
                 ));
             }
         }
+        elseif($event['type'] === MessageRead::class){
+            if ($event["conversation_id"] === $this->selectedConversation->id) {
+                foreach ($this->selectedConversation->messages as $message) {
+                    if ($message->read_at) {
+                        continue;
+                    }else{
+                        $message->read_at = now();
+                    }
+                }
+            }
+        }
     }
 
     public function LoadMessages()
@@ -127,7 +138,10 @@ class ChatBox extends Component
 
     public function render()
     {
-        
+        // MS - Send the notification of message read
+        Notification::send($this->selectedConversation->getReceiver(), new MessageRead(
+            $this->selectedConversation->id
+        ));
         $this->LoadMessages();
         return view('livewire.chat.chat-box');
     }

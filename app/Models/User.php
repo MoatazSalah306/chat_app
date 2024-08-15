@@ -49,15 +49,15 @@ class User extends Authenticatable
 
     public function conversations()
     {
-        return $this->hasMany(Conversation::class,'sender_id')->orWhere('receiver_id',$this->id);
+        return $this->hasMany(Conversation::class, 'sender_id')->orWhere('receiver_id', $this->id);
     }
 
-     /**
+    /**
      * The channels the user receives notification broadcasts on.
      */
     public function receivesBroadcastNotificationsOn(): string
     {
-        return 'users.'.$this->id;
+        return 'users.' . $this->id;
     }
 
     public function favourites()
@@ -68,5 +68,12 @@ class User extends Authenticatable
     public function favouriteConversations()
     {
         return $this->hasManyThrough(Conversation::class, Favourite::class, 'user_id', 'id', 'id', 'conversation_id');
+    }
+
+    public function countConversations()
+    {
+        return Conversation::where('sender_id', $this->id)
+            ->orWhere('receiver_id', $this->id)
+            ->count();
     }
 }
