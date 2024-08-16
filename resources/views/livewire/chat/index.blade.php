@@ -6,7 +6,7 @@
             @livewire('chat.chat-list')
         </div>
     
-        <div class="hidden md:grid w-full border-l h-full relative overflow-y-auto" style="contain:content">
+        <div id="chat-index" class="hidden md:grid w-full border-l h-full relative overflow-y-auto" style="contain:content">
             
             <h2 class="xl:text-4xl lg:text-3xl font-mono text-gray-300 text-center my-auto">choose a conversation to start chatting</h2>
         </div>

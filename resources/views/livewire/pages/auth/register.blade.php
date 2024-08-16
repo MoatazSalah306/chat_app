@@ -78,7 +78,7 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Avatar Upload -->
         <div class="mt-4">
             <x-input-label for="avatar" :value="__('Avatar (Optional)')" />
-            <input wire:model="avatar" class="rounded-md shadow-sm relative m-0 block w-full min-w-0 flex-auto border border-solid border-secondary-500 bg-neutral-200 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface/50 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.52rem] file:text-surface/50 focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:bg-neutral-600  dark:text-white/50 file:dark:text-white/50" type="file" id="formFileDisabled"/>            
+            <input wire:model="avatar" class="rounded-md shadow-sm relative m-0 block w-full min-w-0 flex-auto border border-solid border-secondary-500 bg-neutral-200 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-surface/50 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:me-3 file:overflow-hidden file:rounded-none file:border-0 file:border-e file:border-solid file:border-inherit file:bg-transparent file:px-3  file:py-[0.52rem] file:text-surface/50 focus:border-primary focus:text-gray-700 focus:shadow-inset focus:outline-none dark:border-white/70 dark:bg-neutral-600  dark:text-white/50 file:dark:text-white/50" type="file"/>            
             <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
             @if ($avatar)
                 <div class="mt-2">

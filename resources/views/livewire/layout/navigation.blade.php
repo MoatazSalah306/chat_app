@@ -5,6 +5,7 @@ use Livewire\Volt\Component;
 
 new class extends Component
 {
+
     /**
      * Log the current user out of the application.
      */
@@ -14,6 +15,7 @@ new class extends Component
 
         $this->redirect('/login', navigate: true);
     }
+
 }; ?>
 
 <nav  x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
@@ -75,7 +77,7 @@ new class extends Component
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
+                        <button wire:click="logout" class="w-full text-start" wire:confirm.prompt="Are you sure?\n\nType LOGOUT to confirm|LOGOUT">
                             <x-dropdown-link>
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
